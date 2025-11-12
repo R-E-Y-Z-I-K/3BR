@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3br — 3D печать, сканирование, моделирование, реверс-инжиниринг и рекламные решения | Барановичи, РБ</title>
+  <meta name="description" content="3brbelarus — профессиональная 3D печать, 3D сканирование, моделирование и реверс-инжиниринг, а также рекламные стенды, постеры, вывески и конструкции любой сложности. Барановичи, работаем по всей Беларуси." />
+  <meta name="keywords" content="3D печать, 3D сканирование, моделирование, реверс-инжиниринг, реклама, рекламные стенды, постеры, вывески, лайтбоксы, Барановичи, Беларусь, прототипирование, FDM, SLA, SLS, CAD" />
+  <link rel="icon" href="img/favicon-32x32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SVG-спрайт (иконки темы) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+  </svg>
+
+  <!-- Частицы для фона -->
+  <div id="particles" aria-hidden="true"></div>
+
+  <!-- Glow-элемент, который следит за курсором -->
+  <div id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Кнопка "Наверх" -->
+  <button id="scrollToTop" class="scroll-top" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="36" height="36">
+        <div>
+          <h1>3br</h1>
+          <small>3D печать и рекламные конструкции — Барановичи, работаем по всей РБ</small>
+        </div>
+      </div>
+      <nav class="menu" aria-label="Главное меню">
+        <a href="#services">Услуги</a>
+        <a href="#advertising">Реклама</a>
+        <a href="#materials">Материалы</a>
+        <a href="#process">Процесс</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#contact" class="cta secondary">Связаться</a>
+      </nav>
+      <div class="actions">
+        <button class="cta magnetic" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Рассчитать проект</button>
+        <button id="themeToggle" class="icon-btn" aria-label="Переключить тему">
+          <svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container wrap">
+      <div class="reveal">
+        <!-- Убрана анимация печати текста -->
+        <h2 class="gradient-text">3D печать, сканирование, моделирование, реверс‑инжиниринг и рекламные решения под ключ</h2>
+        <p>От идеи и 3D до готового изделия и рекламной конструкции. Барановичи, доставка и монтаж по всей Беларуси.</p>
+        <div class="badges">
+          <span class="badge floating">Сроки от 24 часов</span>
+          <span class="badge floating">Точность до 0.05 мм</span>
+          <span class="badge floating">CAD/CAE full‑cycle</span>
+          <span class="badge floating">FDM / SLA / SLS</span>
+          <span class="badge floating">Рекламные стенды и постеры</span>
+        </div>
+        <div class="inline">
+          <button class="cta magnetic ripple" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Запросить расчет</button>
+          <a class="cta secondary magnetic" href="#portfolio">Смотреть работы</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal glass-card floating">
+        <h4 style="margin:0 0 8px">Почему 3br</h4>
+        <ul class="list">
+          <li><b>Индивидуально:</b> подбор технологии под геометрию, нагрузку, бюджет и цели рекламы</li>
+          <li><b>Инженерно:</b> реверс‑инжиниринг, допуски/посадки, подготовка к производству</li>
+          <li><b>Под ключ:</b> 3D скан, CAD‑модель, печать, сборка, пост‑обработка и монтаж рекламы</li>
+        </ul>
+        <div class="kpi">
+          <div class="item"><b data-target="300">0</b><span class="muted"> деталей напечатано</span></div>
+          <div class="item"><b data-target="50">0</b><span class="muted"> проектов с реверсом</span></div>
+          <div class="item"><b data-target="100">0</b><span class="muted"> рекламных макетов и стендов</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h3 class="gradient-text">Услуги</h3>
+      <div class="grid">
+        <div class="card reveal card-3d">
+          <h4>3D сканирование</h4>
+          <p class="muted">Точное оцифровывание изделий, создание облаков точек и поверхностей для CAD.</p>
+          <ul class="list">
+            <li><b>Точность:</b> до 0.05–0.1 мм</li>
+            <li><b>Выходные данные:</b> STL, OBJ, STEP</li>
+            <li><b>Применение:</b> реверс, контроль качества, кастомизация</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>3D моделирование (CAD)</h4>
+          <p class="muted">Параметрическое моделирование, допуски/посадки, подготовка к печати и производству.</p>
+          <ul class="list">
+            <li><b>Форматы:</b> STEP, IGES, STL</li>
+            <li><b>Аналитика:</b> прочностные и технологические проверки</li>
+            <li><b>Документация:</b> чертежи, спецификации</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Реверс‑инжиниринг</h4>
+          <p class="muted">Восстановление геометрии по образцу/скану, адаптация под современные процессы.</p>
+          <ul class="list">
+            <li><b>Совместимость:</b> проверка посадок и допусков</li>
+            <li><b>Оптимизация:</b> облегчение, усиление, конверсия материалов</li>
+            <li><b>Подготовка:</b> trial‑печати и контрольные сборки</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:16px">
+        <div class="card reveal card-3d">
+          <h4>3D печать FDM</h4>
+          <p class="muted">Быстро и бюджетно для функциональных прототипов и малых серий.</p>
+          <span class="pill">PLA</span><span class="pill">PETG</span><span class="pill">ABS</span><span class="pill">ASA</span><span class="pill">Nylon</span><span class="pill">CF‑filled</span>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>3D печать SLA/DLP</h4>
+          <p class="muted">Высокая детализация, гладкая поверхность для визуальных и точных моделей.</p>
+          <span class="pill">Твердые</span><span class="pill">Гибкие</span><span class="pill">Высокотемп</span><span class="pill">Литьевые мастера</span>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>3D печать SLS</h4>
+          <p class="muted">Прочные нейлоновые детали без упоров, оптимально для сложной геометрии.</p>
+          <span class="pill">PA12</span><span class="pill">PA11</span><span class="pill">GF/CF наполнены</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="advertising">
+    <div class="container">
+      <h3 class="gradient-text">Рекламные решения</h3>
+      <div class="columns">
+        <div class="card reveal card-3d">
+          <h4>Производство и дизайн</h4>
+          <ul class="list">
+            <li><b>Стенды:</b> напольные, настольные, POS‑материалы, промо‑островки</li>
+            <li><b>Постеры:</b> широкоформатная печать, ламинация, фреймы</li>
+            <li><b>Вывески:</b> лайтбоксы, объёмные буквы, композит, акрил</li>
+            <li><b>3D‑элементы:</b> фигурные элементы, прототипы для инсталляций</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Монтаж и сопровождение</h4>
+          <ul class="list">
+            <li><b>Замеры:</b> выезд, согласование крепежа и электричества</li>
+            <li><b>Монтаж:</b> на фасадах, внутри помещений, на стойках</li>
+            <li><b>Документы:</b> макеты, схемы крепления, паспорт изделия</li>
+            <li><b>Сервис:</b> ремонт, обновление графики, сезонные кампании</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Совмещаем инженерную точность 3D и маркетинговые задачи: конструкция безопасна, визуал — читабелен, дедлайн — соблюден.</p>
+    </div>
+  </section>
+
+  <section id="materials">
+    <div class="container">
+      <h3 class="gradient-text">Материалы и допуски</h3>
+      <div class="columns">
+        <div class="card reveal card-3d">
+          <h4>Рекомендации по выбору</h4>
+          <ul class="list">
+            <li><b>Прочность/нагрузка:</b> Nylon, PETG, CF‑композиты</li>
+            <li><b>Стойкость к погоде:</b> ASA, PETG, композитные панели (реклама)</li>
+            <li><b>Точность и гладкость:</b> смолы SLA/DLP, акрил (реклама)</li>
+            <li><b>Температура:</b> ABS/PC/спец‑смолы; световые панели — с термозащитой</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Типовые допуски</h4>
+          <ul class="list">
+            <li><b>FDM:</b> ±0.2–0.3 мм, для посадок — компенсация усадки</li>
+            <li><b>SLA:</b> ±0.1–0.2 мм, отличная мелкая детализация</li>
+            <li><b>SLS:</b> ±0.15–0.25 мм, высокая изотропность</li>
+            <li><b>Рекламные узлы:</b> допуски крепежа и электроники по ТЗ</li>
+          </ul>
+          <p class="note">Фактические допуски зависят от геометрии, материала и пост‑обработки. Предлагаем бесплатную консультацию по посадкам.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="container">
+      <h3 class="gradient-text">Как мы работаем</h3>
+      <div class="columns">
+        <div class="card process reveal card-3d">
+          <div class="step"><div class="num">1</div><div><b>Бриф и оценка:</b> получаем ТЗ, фото/сканы, обсуждаем требования и сроки.</div></div>
+          <div class="step"><div class="num">2</div><div><b>Скан/модель:</b> выполняем 3D сканирование или CAD‑моделирование.</div></div>
+          <div class="step"><div class="num">3</div><div><b>Технология печати:</b> выбираем FDM/SLA/SLS, согласуем материал и допуски.</div></div>
+          <div class="step"><div class="num">4</div><div><b>Пробная печать:</b> контрольная деталь, сборка, корректировки по посадкам.</div></div>
+          <div class="step"><div class="num">5</div><div><b>Серия и доставка:</b> финальная партия, упаковка, доставка по РБ.</div></div>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Пост‑обработка</h4>
+          <ul class="list">
+            <li><b>Механика:</b> шлифование, сверловка, нарезка резьбы</li>
+            <li><b>Финиш:</b> грунт, покраска, хим. сглаживание (для ABS)</li>
+            <li><b>Сборка:</b> вставки, втулки, резьбовые элементы</li>
+            <li><b>Реклама:</b> печать графики, аппликации, подсветка, проводка</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h3 class="gradient-text">Портфолио</h3>
+      <p class="muted">Примеры 3D и рекламных работ: прототипы, корпуса, функциональные детали, стенды, постеры, вывески.</p>
+      <div class="grid">
+        <div class="card reveal card-3d"><img src="img/3d1.jpg" alt="Корпус датчика"><h4>Корпус датчика</h4><p class="muted">ABS, хим. сглаживание</p></div>
+        <div class="card reveal card-3d"><img src="img/3d2.jpg" alt="Прототип кронштейна"><h4>Прототип кронштейна</h4><p class="muted">PETG, усиленные ребра</p></div>
+        <div class="card reveal card-3d"><img src="img/3d3.jpg" alt="Мастер‑модель"><h4>Мастер‑модель</h4><p class="muted">SLA, высокое качество поверхности</p></div>
+      </div>
+      <div class="grid" style="margin-top:16px">
+        <div class="card reveal card-3d"><img src="img/ad1.jpg" alt="Рекламный стенд"><h4>Рекламный стенд</h4><p class="muted">Композит + печать, сборка и монтаж</p></div>
+        <div class="card reveal card-3d"><img src="img/ad2.jpg" alt="Постер для витрины"><h4>Постер для витрины</h4><p class="muted">Широкоформат, ламинация, фрейм</p></div>
+        <div class="card reveal card-3d"><img src="img/ad3.jpg" alt="Лайтбокс с 3D элементом"><h4>Лайтбокс с 3D элементом</h4><p class="muted">Акрил, подсветка, фигурные элементы</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h3 class="gradient-text">Связаться с нами</h3>
+      <div class="contact">
+        <div class="card reveal card-3d">
+          <form id="quoteForm" onsubmit="submitForm(event)">
+            <div class="columns">
+              <div>
+                <label for="name">Ваше имя</label>
+                <input id="name" type="text" name="name" placeholder="Иван" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" placeholder="ivan@example.com" required />
+              </div>
+            </div>
+            <div class="columns" style="margin-top:10px">
+              <div>
+                <label for="phone">Телефон</label>
+                <input id="phone" type="tel" name="phone" placeholder="+375 (__) ___‑__‑__" />
+              </div>
+              <div>
+                <label for="service">Услуга</label>
+                <select id="service" name="service">
+                  <option>3D печать</option>
+                  <option>3D сканирование</option>
+                  <option>CAD‑моделирование</option>
+                  <option>Реверс‑инжиниринг</option>
+                  <option>Рекламный стенд/постер</option>
+                  <option>Вывеска/лайтбокс</option>
+                  <option>Монтаж рекламы</option>
+                </select>
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <label for="desc">Описание задачи</label>
+              <textarea id="desc" name="desc" rows="4" placeholder="Кратко опишите деталь/конструкцию, материал, место установки, требования по прочности/точности/визуалу" required></textarea>
+            </div>
+            <div style="margin-top:10px">
+              <label for="files">Ссылка на файлы (STL/STEP/Макеты/Фото)</label>
+              <input id="files" type="url" name="files" placeholder="https://disk.yandex.by/..." />
+            </div>
+            <div class="inline" style="margin-top:12px">
+              <button class="cta magnetic ripple" type="submit">Отправить запрос</button>
+              <span class="note">Мы ответим в течение рабочего дня</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="card reveal card-3d">
+          <h4>Наши контакты</h4>
+          <ul class="list">
+            <li><b>Email:</b> info@3brbelarus.by</li>
+            <li><b>Телефон:</b> +375 (XX) XXX‑XX‑XX</li>
+            <li><b>Адрес:</b> Барановичи, Беларусь</li>
+            <li><b>График:</b> Пн–Пт 9:00–18:00</li>
+            <li><b>Доставка:</b> по всей РБ (СДЭК/Белпочта/Европочта)</li>
+          </ul>
+          <div class="map" id="map" aria-label="Карта Барановичей"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="inline">
+        <span>© 3br, 2025</span>
+        <span>ИНН/УНП: _______</span>
+        <a href="#privacy">Политика конфиденциальности</a>
+        <a href="#terms">Договор оферты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Частицы для фона
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      if (!particlesContainer) return;
+      
+      const particleCount = window.innerWidth < 768 ? 20 : 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+        particle.style.opacity = Math.random() * 0.3;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Магнитные кнопки
+    function initMagneticButtons() {
+      const buttons = document.querySelectorAll('.magnetic');
+      
+      buttons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const deltaX = (x - centerX) / centerX * 10;
+          const deltaY = (y - centerY) / centerY * 10;
+          
+          btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+        });
+      });
+    }
+
+    // Интерактивный параллакс
+    function initParallax() {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        hero.style.transform = `translateY(${rate}px)`;
+      });
+    }
+
+    // Анимированный счетчик чисел
+    function animateNumbers() {
+      const counters = document.querySelectorAll('.kpi b[data-target]');
+      
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + '+';
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + '+';
+          }
+        }, 20);
+      });
+    }
+
+    // Интерактивная карта
+    function initInteractiveMap() {
+      const map = document.getElementById('map');
+      if (!map) return;
+
+      map.innerHTML = `
+        <div style="padding:20px;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:center">
+          <h4 style="margin:0 0 10px">Барановичи, Беларусь</h4>
+          <p style="color:var(--muted);margin:0 0 15px">Доставка по всей РБ</p>
+          <button class="cta magnetic" onclick="showDeliveryModal()">Рассчитать доставку</button>
+        </div>
+      `;
+    }
+
+    // Модальное окно
+    function showDeliveryModal() {
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content glass-card">
+          <h3>Расчет доставки</h3>
+          <p>Свяжитесь с нами для точного расчета стоимости доставки</p>
+          <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+    }
+
+    // Улучшенный glow эффект
+    function enhanceCursorGlow() {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow) return;
+      
+      let mouseX = 0, mouseY = 0;
+      let glowX = 0, glowY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animate() {
+        // Плавное следование
+        glowX += (mouseX - glowX - 100) * 0.1;
+        glowY += (mouseY - glowY - 100) * 0.1;
+        
+        glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+        
+        // Изменение размера при движении
+        const deltaX = Math.abs(mouseX - glowX);
+        const deltaY = Math.abs(mouseY - glowY);
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const scale = 1 + distance * 0.001;
+        
+        glow.style.transform += ` scale(${scale})`;
+        
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // Кнопка "Наверх"
+    function initScrollToTop() {
+      const scrollBtn = document.getElementById('scrollToTop');
+      if (!scrollBtn) return;
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+      
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Эффект ripple для кнопок
+    function initRippleButtons() {
+      const buttons = document.querySelectorAll('.ripple');
+      
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+          `;
+          ripple.classList.add('ripple-effect');
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+    }
+
+    // Переключение темы с SVG-иконкой и сохранением состояния
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      
+      const iconUse = btn.querySelector('use');
+      const saved = localStorage.getItem('theme');
+      if (saved) root.setAttribute('data-theme', saved);
+
+      function updateIcon() {
+        const current = root.getAttribute('data-theme');
+        iconUse.setAttribute('href', current === 'dark' ? '#icon-sun' : '#icon-moon');
+      }
+      updateIcon();
+
+      btn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcon();
+      });
+    })();
+
+    // Плавное появление элементов при скролле
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('reveal-in');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.15});
+      els.forEach(el=>io.observe(el));
+    })();
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      initMagneticButtons();
+      initParallax();
+      initInteractiveMap();
+      enhanceCursorGlow();
+      initScrollToTop();
+      initRippleButtons();
+      
+      // Запускаем анимацию чисел когда секция в поле зрения
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateNumbers();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      
+      const kpiSection = document.querySelector('.kpi');
+      if (kpiSection) observer.observe(kpiSection);
+    });
+
+    // Отправка формы (заглушка)
+    function submitForm(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      alert("Спасибо! Заявка отправлена. Мы свяжемся с вами по email: " + (data.email || ""));
+      // TODO: отправка на ваш сервер/Google Forms/Telegram Bot
+    }
+  </script>
+</body>
+</html>
