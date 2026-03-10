@@ -25,10 +25,12 @@ html[data-theme="light"]{
 
 /* Базовые стили */
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
 a{color:var(--accent);text-decoration:none}
 img{max-width:100%;display:block}
 .container{max-width:1100px;margin:0 auto;padding:0 20px}
+section[id]{scroll-margin-top:100px}
 
 /* Частицы для фона */
 #particles {
@@ -69,10 +71,6 @@ img{max-width:100%;display:block}
   opacity:.8;
   will-change:transform;
   transform:translate(-100px,-100px);
-  transition: transform 0.1s var(--ease-out-quad), 
-              width 0.3s var(--ease-out-quad), 
-              height 0.3s var(--ease-out-quad),
-              opacity 0.3s var(--ease-out-quad);
 }
 
 /* Кнопка "Наверх" */
@@ -122,14 +120,17 @@ html[data-theme="light"] header{
 .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
 .brand{display:flex;align-items:center;gap:12px}
 .logo-img{
-  width:36px;height:36px;border-radius:8px;object-fit:cover;
+  width:72px;height:72px;border-radius:12px;object-fit:cover;
 }
 .brand h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px}
 .brand small{color:var(--muted);display:block;font-size:12px;margin-top:2px}
 .menu{display:flex;gap:18px;align-items:center}
-.menu a{font-weight:600;color:#cbd5e1;transition:color 0.3s var(--ease-out-quad)}
+.menu a{font-weight:600;color:#cbd5e1;transition:color 0.3s var(--ease-out-quad), background-color 0.3s var(--ease-out-quad), box-shadow 0.3s var(--ease-out-quad);padding:8px 12px;border-radius:8px;position:relative}
 html[data-theme="light"] .menu a{color:#0f172a}
 .menu a:hover{color:var(--accent)}
+.menu a.active{color:var(--accent);background:rgba(56,189,248,.15);box-shadow:0 0 12px rgba(56,189,248,.3)}
+html[data-theme="light"] .menu a.active{background:rgba(14,165,233,.12);box-shadow:0 0 12px rgba(14,165,233,.25)}
+.menu a.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--accent);border-radius:2px}
 
 /* Блок действий справа: кнопка рассчёта + кнопка темы в строку */
 .actions{display:flex;align-items:center;gap:10px}
@@ -225,6 +226,18 @@ section h3{font-size:26px;margin:0 0 14px}
   position: relative;
   overflow: hidden;
 }
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:0;
+  transition:opacity 0.4s var(--ease-out-quad);
+  z-index:0;
+}
+.card:hover::before{opacity:0.3}
 .card:hover{
   transform:translateY(-6px);
   box-shadow:0 16px 32px rgba(0,0,0,.25);
@@ -234,10 +247,22 @@ html[data-theme="light"] .card:hover{
   box-shadow:0 16px 32px rgba(2,6,23,.12);
   border-color:#d7dee7;
 }
+.card > *{position:relative;z-index:1}
+
+/* Фоновые изображения для карточек через data-атрибут */
+.card[data-bg]::before{background-image:var(--card-bg)}
+.card[data-bg="1"]::before{--card-bg:url('img/bg-tech1.jpg')}
+.card[data-bg="2"]::before{--card-bg:url('img/bg-tech2.jpg')}
+.card[data-bg="3"]::before{--card-bg:url('img/bg-tech3.jpg')}
+.card[data-bg="4"]::before{--card-bg:url('img/bg-tech4.jpg')}
+.card[data-bg="5"]::before{--card-bg:url('img/bg-tech5.jpg')}
+.card[data-bg="6"]::before{--card-bg:url('img/bg-tech6.jpg')}
 .card h4{margin:0 0 8px;font-size:18px}
 .muted{color:var(--muted)}
 .list{display:grid;gap:8px;margin-top:8px}
-.list li{list-style:none}
+.list li{list-style:none;position:relative;padding:8px 12px;border-radius:8px;transition:background-color 0.3s var(--ease-out-quad), transform 0.3s var(--ease-out-quad)}
+.list li:hover{transform:translateX(4px);background-color:rgba(56,189,248,.08)}
+html[data-theme="light"] .list li:hover{background-color:rgba(14,165,233,.06)}
 .pill{display:inline-block;padding:6px 8px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:#0f172a;font-size:12px;margin:4px 6px 0 0}
 html[data-theme="dark"] .pill{color:#cbd5e1}
 
@@ -245,6 +270,58 @@ html[data-theme="dark"] .pill{color:#cbd5e1}
 .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
 .kpi .item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px}
 .kpi .item b{display:block;font-size:18px}
+
+/* Карточки портфолио */
+.portfolio-card{
+  padding:0!important;
+  min-height:280px;
+  display:flex;
+  flex-direction:column;
+}
+.portfolio-card .portfolio-img{
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  overflow:hidden;
+  border-radius:12px;
+}
+.portfolio-card .portfolio-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 0.5s var(--ease-out-quad);
+}
+.portfolio-card:hover .portfolio-img img{
+  transform:scale(1.1);
+}
+.portfolio-card .portfolio-overlay{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  padding:20px 16px 16px;
+  background:linear-gradient(to top, rgba(15,18,22,0.95) 0%, rgba(15,18,22,0.7) 60%, transparent 100%);
+  border-radius:0 0 12px 12px;
+  transform:translateY(20px);
+  opacity:0.7;
+  transition:all 0.4s var(--ease-out-quad);
+}
+html[data-theme="light"] .portfolio-card .portfolio-overlay{
+  background:linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 60%, transparent 100%);
+}
+.portfolio-card:hover .portfolio-overlay{
+  transform:translateY(0);
+  opacity:1;
+}
+.portfolio-card .portfolio-overlay h4{
+  margin:0 0 4px;
+  color:#fff;
+  font-size:16px;
+}
+html[data-theme="light"] .portfolio-card .portfolio-overlay h4{
+  color:var(--text);
+}
+.portfolio-card .portfolio-overlay p{
+  margin:0;
+  font-size:13px;
+}
 
 /* Процесс */
 .process{counter-reset:step}
@@ -366,10 +443,44 @@ html[data-theme="light"] .glass-card {
   .menu{display:none}
   .actions{gap:8px}
   .hero h2 { font-size: 28px; }
+  .hero-card{margin:0 auto;max-width:100%;width:100%;box-sizing:border-box;padding:16px}
+}
+
+/* Адаптив для очень маленьких экранов */
+@media (max-width:440px){
+  .hero .wrap{gap:16px}
+  .hero-card{width:100%;margin:0;padding:14px;box-sizing:border-box;overflow:hidden;left:0}
+  .hero-card .kpi{grid-template-columns:1fr;gap:8px}
+  .hero-card .kpi .item{padding:10px}
+  .hero-card ul.list{padding-left:0;margin:0}
+  .hero-card h4{font-size:16px}
+  .badges{gap:8px}
+  .badge{font-size:12px;padding:6px 8px}
+  .hero h2{font-size:24px}
+  .container{padding:0 12px}
+}
+
+/* Отступы для header элементов на средних экранах */
+@media (max-width:1100px){
+  .container{padding:0 16px}
+  .brand{padding-left:4px}
+  .actions{padding-right:4px}
+}
+
+/* Адаптив header для маленьких экранов */
+@media (max-width:600px){
+  .nav{padding:10px 0}
+  .logo-img{width:36px;height:36px;border-radius:8px}
+  .brand h1{font-size:16px}
+  .brand small{font-size:11px}
+  .actions{gap:6px}
+  .cta{padding:8px 12px;font-size:14px}
+  .icon-btn{width:36px;height:36px}
+  .icon-btn .icon{width:20px;height:20px}
 }
 
 /* Предпочтение минимальной анимации для пользователей с reduced motion */
 @media (prefers-reduced-motion: reduce){
   .card, .reveal, .floating, .card-3d, .particle{transition:none; animation:none}
-  #cursorGlow{display:none}
+  #cursorGlow{display:none!important}
 }

@@ -39,7 +39,7 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="36" height="36">
+        <img src="img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="72" height="72">
         <div>
           <h1>3br</h1>
           <small>3D печать и рекламные конструкции — Барановичи, работаем по всей РБ</small>
@@ -72,7 +72,7 @@
           <span class="badge floating">Сроки от 24 часов</span>
           <span class="badge floating">Точность до 0.05 мм</span>
           <span class="badge floating">CAD/CAE full‑cycle</span>
-          <span class="badge floating">FDM / SLA</span>
+          <span class="badge floating">FDM / SLA / SLS</span>
           <span class="badge floating">Рекламные стенды и постеры</span>
         </div>
         <div class="inline">
@@ -101,7 +101,7 @@
     <div class="container">
       <h3 class="gradient-text">Услуги</h3>
       <div class="grid">
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="1">
           <h4>3D сканирование</h4>
           <p class="muted">Точное оцифровывание изделий, создание облаков точек и поверхностей для CAD.</p>
           <ul class="list">
@@ -110,7 +110,7 @@
             <li><b>Применение:</b> реверс, контроль качества, кастомизация</li>
           </ul>
         </div>
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="2">
           <h4>3D моделирование (CAD)</h4>
           <p class="muted">Параметрическое моделирование, допуски/посадки, подготовка к печати и производству.</p>
           <ul class="list">
@@ -119,7 +119,7 @@
             <li><b>Документация:</b> чертежи, спецификации</li>
           </ul>
         </div>
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="3">
           <h4>Реверс‑инжиниринг</h4>
           <p class="muted">Восстановление геометрии по образцу/скану, адаптация под современные процессы.</p>
           <ul class="list">
@@ -131,17 +131,17 @@
       </div>
 
       <div class="grid" style="margin-top:16px">
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="4">
           <h4>3D печать FDM</h4>
           <p class="muted">Быстро и бюджетно для функциональных прототипов и малых серий.</p>
           <span class="pill">PLA</span><span class="pill">PETG</span><span class="pill">ABS</span><span class="pill">ASA</span><span class="pill">Nylon</span><span class="pill">CF‑filled</span>
         </div>
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="5">
           <h4>3D печать SLA/DLP</h4>
           <p class="muted">Высокая детализация, гладкая поверхность для визуальных и точных моделей.</p>
           <span class="pill">Твердые</span><span class="pill">Гибкие</span><span class="pill">Высокотемп</span><span class="pill">Литьевые мастера</span>
         </div>
-        <div class="card reveal card-3d">
+        <div class="card reveal card-3d" data-bg="6">
           <h4>3D печать SLS</h4>
           <p class="muted">Прочные нейлоновые детали без упоров, оптимально для сложной геометрии.</p>
           <span class="pill">PA12</span><span class="pill">PA11</span><span class="pill">GF/CF наполнены</span>
@@ -233,14 +233,50 @@
       <h3 class="gradient-text">Портфолио</h3>
       <p class="muted">Примеры 3D и рекламных работ: прототипы, корпуса, функциональные детали, стенды, постеры, вывески.</p>
       <div class="grid">
-        <div class="card reveal card-3d"><img src="img/3d1.jpg" alt="Корпус датчика"><h4>Корпус датчика</h4><p class="muted">ABS, хим. сглаживание</p></div>
-        <div class="card reveal card-3d"><img src="img/3d2.jpg" alt="Прототип кронштейна"><h4>Прототип кронштейна</h4><p class="muted">PETG, усиленные ребра</p></div>
-        <div class="card reveal card-3d"><img src="img/3d3.jpg" alt="Мастер‑модель"><h4>Мастер‑модель</h4><p class="muted">SLA, высокое качество поверхности</p></div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/3d1.jpg" alt="Корпус датчика"></div>
+          <div class="portfolio-overlay">
+            <h4>Корпус датчика</h4>
+            <p class="muted">ABS, хим. сглаживание</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/3d2.jpg" alt="Прототип кронштейна"></div>
+          <div class="portfolio-overlay">
+            <h4>Прототип кронштейна</h4>
+            <p class="muted">PETG, усиленные ребра</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/3d3.jpg" alt="Мастер‑модель"></div>
+          <div class="portfolio-overlay">
+            <h4>Мастер‑модель</h4>
+            <p class="muted">SLA, высокое качество поверхности</p>
+          </div>
+        </div>
       </div>
       <div class="grid" style="margin-top:16px">
-        <div class="card reveal card-3d"><img src="img/ad1.jpg" alt="Рекламный стенд"><h4>Рекламный стенд</h4><p class="muted">Композит + печать, сборка и монтаж</p></div>
-        <div class="card reveal card-3d"><img src="img/ad2.jpg" alt="Постер для витрины"><h4>Постер для витрины</h4><p class="muted">Широкоформат, ламинация, фрейм</p></div>
-        <div class="card reveal card-3d"><img src="img/ad3.jpg" alt="Лайтбокс с 3D элементом"><h4>Лайтбокс с 3D элементом</h4><p class="muted">Акрил, подсветка, фигурные элементы</p></div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/ad1.jpg" alt="Рекламный стенд"></div>
+          <div class="portfolio-overlay">
+            <h4>Рекламный стенд</h4>
+            <p class="muted">Композит + печать, сборка и монтаж</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/ad2.jpg" alt="Постер для витрины"></div>
+          <div class="portfolio-overlay">
+            <h4>Постер для витрины</h4>
+            <p class="muted">Широкоформат, ламинация, фрейм</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="img/ad3.jpg" alt="Лайтбокс с 3D элементом"></div>
+          <div class="portfolio-overlay">
+            <h4>Лайтбокс с 3D элементом</h4>
+            <p class="muted">Акрил, подсветка, фигурные элементы</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -431,6 +467,16 @@
       const glow = document.getElementById('cursorGlow');
       if (!glow) return;
       
+      // Проверяем, является ли устройство touch-устройством
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        // На мобильных устройствах просто скрываем свечение
+        glow.style.display = 'none';
+        return;
+      }
+      
+      // Для десктопа - следование за курсором
       let mouseX = 0, mouseY = 0;
       let glowX = 0, glowY = 0;
 
@@ -440,9 +486,9 @@
       });
 
       function animate() {
-        // Плавное следование
-        glowX += (mouseX - glowX - 100) * 0.1;
-        glowY += (mouseY - glowY - 100) * 0.1;
+        // Плавное следование (увеличена скорость с 0.1 до 0.25)
+        glowX += (mouseX - glowX - 100) * 0.25;
+        glowY += (mouseY - glowY - 100) * 0.25;
         
         glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
         
@@ -478,6 +524,53 @@
           behavior: 'smooth'
         });
       });
+    }
+
+    // Подсветка активного пункта меню при скролле
+    function initActiveMenuHighlight() {
+      const sections = document.querySelectorAll('section[id]');
+      const menuLinks = document.querySelectorAll('.menu a[href^="#"]');
+      
+      if (!sections.length || !menuLinks.length) return;
+
+      function updateActiveMenu() {
+        // Точка детекции смещена ниже (180px)
+        const scrollPos = window.scrollY + 180;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        
+        // Проверяем, достиг ли пользователь конца страницы
+        const isAtBottom = window.scrollY + windowHeight >= docHeight - 50;
+        
+        if (isAtBottom) {
+          // Если достигли низа - подсвечиваем последнюю секцию перед футером (portfolio)
+          menuLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#portfolio') {
+              link.classList.add('active');
+            }
+          });
+          return;
+        }
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          const sectionId = section.getAttribute('id');
+          
+          if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+            menuLinks.forEach(link => {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === '#' + sectionId) {
+                link.classList.add('active');
+              }
+            });
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveMenu);
+      updateActiveMenu(); // Initial call
     }
 
     // Эффект ripple для кнопок
@@ -557,6 +650,7 @@
       enhanceCursorGlow();
       initScrollToTop();
       initRippleButtons();
+      initActiveMenuHighlight();
       
       // Запускаем анимацию чисел когда секция в поле зрения
       const observer = new IntersectionObserver((entries) => {
@@ -577,9 +671,8 @@
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.target).entries());
       alert("Спасибо! Заявка отправлена. Мы свяжемся с вами по email: " + (data.email || ""));
+      // TODO: отправка на ваш сервер/Google Forms/Telegram Bot
     }
   </script>
 </body>
-
 </html>
-
