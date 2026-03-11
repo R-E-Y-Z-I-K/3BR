@@ -251,12 +251,12 @@ html[data-theme="light"] .card:hover{
 
 /* Фоновые изображения для карточек через data-атрибут */
 .card[data-bg]::before{background-image:var(--card-bg)}
-.card[data-bg="1"]::before{--card-bg:url('img/bg-tech1.jpg')}
-.card[data-bg="2"]::before{--card-bg:url('img/bg-tech2.jpg')}
-.card[data-bg="3"]::before{--card-bg:url('img/bg-tech3.jpg')}
-.card[data-bg="4"]::before{--card-bg:url('img/bg-tech4.jpg')}
-.card[data-bg="5"]::before{--card-bg:url('img/bg-tech5.jpg')}
-.card[data-bg="6"]::before{--card-bg:url('img/bg-tech6.jpg')}
+.card[data-bg="1"]::before{--card-bg:url('./img/bg-tech1.jpg')}
+.card[data-bg="2"]::before{--card-bg:url('./img/bg-tech2.jpg')}
+.card[data-bg="3"]::before{--card-bg:url('./img/bg-tech3.jpg')}
+.card[data-bg="4"]::before{--card-bg:url('./img/bg-tech4.jpg')}
+.card[data-bg="5"]::before{--card-bg:url('./img/bg-tech5.jpg')}
+.card[data-bg="6"]::before{--card-bg:url('./img/bg-tech6.jpg')}
 .card h4{margin:0 0 8px;font-size:18px}
 .muted{color:var(--muted)}
 .list{display:grid;gap:8px;margin-top:8px}
@@ -578,6 +578,11 @@ html[data-theme="dark"] label{color:#cbd5e1}
   margin:0 0 20px;
   color:var(--muted);
   font-size:14px;
+}
+
+/* Error Modal Icon Override */
+.success-icon[style*="rgba(239,68,68"] svg{
+  color:#ef4444;
 }
 
 /* Футер */

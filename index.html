@@ -6,21 +6,36 @@
   <title>3br — 3D печать, сканирование, моделирование, реверс-инжиниринг и рекламные решения | Барановичи, РБ</title>
   <meta name="description" content="3brbelarus — профессиональная 3D печать, 3D сканирование, моделирование и реверс-инжиниринг, а также рекламные стенды, постеры, вывески и конструкции любой сложности. Барановичи, работаем по всей Беларуси." />
   <meta name="keywords" content="3D печать, 3D сканирование, моделирование, реверс-инжиниринг, реклама, рекламные стенды, постеры, вывески, лайтбоксы, Барановичи, Беларусь, прототипирование, FDM, SLA, SLS, CAD" />
-  <link rel="icon" href="img/favicon-32x32.png" type="image/png">
+  <link rel="icon" href="./img/favicon-32x32.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Критичные стили для preloader (fallback если CSS не загрузился) -->
+  <style>
+    .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0f1216;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.5s, visibility 0.5s}
+    .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .preloader-logo{width:80px;height:80px;border-radius:16px;margin-bottom:24px}
+    .preloader-title{font-size:24px;font-weight:700;color:#e5e7eb;margin-bottom:32px;font-family:Inter,system-ui,sans-serif}
+    .preloader-progress{width:200px;height:4px;background:#11161d;border-radius:4px;overflow:hidden}
+    .preloader-bar{height:100%;width:0%;background:linear-gradient(90deg,#38bdf8,#a855f7);border-radius:4px}
+    .preloader-text{margin-top:16px;font-size:13px;color:#9ca3af;font-family:Inter,system-ui,sans-serif}
+  </style>
 </head>
 <body>
   <!-- Preloader -->
   <div class="preloader" id="preloader">
-    <img src="img/android-chrome-512x512.png" alt="3br" class="preloader-logo">
+    <img src="./img/android-chrome-512x512.png" alt="3br" class="preloader-logo">
     <div class="preloader-title">3br</div>
     <div class="preloader-progress">
       <div class="preloader-bar" id="preloaderBar"></div>
     </div>
     <div class="preloader-text" id="preloaderText">Загрузка...</div>
   </div>
+  
+  <!-- Fallback: скрыть preloader если JS отключён -->
+  <noscript>
+    <style>.preloader{display:none!important}</style>
+  </noscript>
 
   <!-- SVG-спрайт (иконки) -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -57,7 +72,7 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="72" height="72">
+        <img src="./img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="72" height="72">
         <div>
           <h1>3br</h1>
           <small>3D печать и рекламные конструкции — Барановичи, работаем по всей РБ</small>
@@ -252,21 +267,21 @@
       <p class="muted">Примеры 3D и рекламных работ: прототипы, корпуса, функциональные детали, стенды, постеры, вывески.</p>
       <div class="grid">
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/3d1.jpg" alt="Корпус датчика"></div>
+          <div class="portfolio-img"><img src="./img/3d1.jpg" alt="Корпус датчика"></div>
           <div class="portfolio-overlay">
             <h4>Корпус датчика</h4>
             <p class="muted">ABS, хим. сглаживание</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/3d2.jpg" alt="Прототип кронштейна"></div>
+          <div class="portfolio-img"><img src="./img/3d2.jpg" alt="Прототип кронштейна"></div>
           <div class="portfolio-overlay">
             <h4>Прототип кронштейна</h4>
             <p class="muted">PETG, усиленные ребра</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/3d3.jpg" alt="Мастер‑модель"></div>
+          <div class="portfolio-img"><img src="./img/3d3.jpg" alt="Мастер‑модель"></div>
           <div class="portfolio-overlay">
             <h4>Мастер‑модель</h4>
             <p class="muted">SLA, высокое качество поверхности</p>
@@ -275,21 +290,21 @@
       </div>
       <div class="grid" style="margin-top:16px">
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/ad1.jpg" alt="Рекламный стенд"></div>
+          <div class="portfolio-img"><img src="./img/ad1.jpg" alt="Рекламный стенд"></div>
           <div class="portfolio-overlay">
             <h4>Рекламный стенд</h4>
             <p class="muted">Композит + печать, сборка и монтаж</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/ad2.jpg" alt="Постер для витрины"></div>
+          <div class="portfolio-img"><img src="./img/ad2.jpg" alt="Постер для витрины"></div>
           <div class="portfolio-overlay">
             <h4>Постер для витрины</h4>
             <p class="muted">Широкоформат, ламинация, фрейм</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
-          <div class="portfolio-img"><img src="img/ad3.jpg" alt="Лайтбокс с 3D элементом"></div>
+          <div class="portfolio-img"><img src="./img/ad3.jpg" alt="Лайтбокс с 3D элементом"></div>
           <div class="portfolio-overlay">
             <h4>Лайтбокс с 3D элементом</h4>
             <p class="muted">Акрил, подсветка, фигурные элементы</p>
@@ -850,11 +865,18 @@
       }
     }
 
-    // Preloader с прогресс-баром
+    // Preloader с прогресс-баром и fail-safe таймаутом
     function initPreloader() {
       const preloader = document.getElementById('preloader');
       const bar = document.getElementById('preloaderBar');
       const text = document.getElementById('preloaderText');
+      
+      // Fail-safe: скрываем preloader через максимум 5 секунд в любом случае
+      const failSafeTimeout = setTimeout(() => {
+        if (preloader && !preloader.classList.contains('hidden')) {
+          preloader.classList.add('hidden');
+        }
+      }, 5000);
       
       const steps = [
         { progress: 20, text: 'Загрузка стилей...' },
@@ -875,6 +897,7 @@
         } else {
           setTimeout(() => {
             preloader.classList.add('hidden');
+            clearTimeout(failSafeTimeout); // Отменяем fail-safe если всё прошло успешно
           }, 300);
         }
       }
@@ -944,7 +967,7 @@
     }
 
     // Отправка формы
-    function submitForm(e) {
+    async function submitForm(e) {
       e.preventDefault();
       
       // Валидация всех полей
@@ -952,6 +975,7 @@
       const phoneInput = document.getElementById('phone');
       const emailInput = document.getElementById('email');
       const descInput = document.getElementById('desc');
+      const serviceInput = document.getElementById('service');
       
       const isNameValid = validateField(nameInput, 'name');
       const isPhoneValid = validateField(phoneInput, 'phone');
@@ -966,36 +990,95 @@
         }
         return;
       }
+
+      // Блокируем кнопку отправки
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправка...';
       
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      
-      // Показываем модальное окно успеха
+      try {
+        // Подготовка данных
+        const formData = new FormData();
+        formData.append('name', nameInput.value.trim());
+        formData.append('phone', phoneInput.value.trim());
+        formData.append('email', emailInput.value.trim());
+        formData.append('service', serviceInput.value);
+        formData.append('desc', descInput.value.trim());
+        
+        // Отправка на API
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Показываем модальное окно успеха
+          const modal = document.createElement('div');
+          modal.className = 'modal-overlay';
+          modal.innerHTML = `
+            <div class="modal-content glass-card">
+              <div class="success-modal">
+                <div class="success-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5"/>
+                  </svg>
+                </div>
+                <h3>Спасибо!</h3>
+                <p>Мы перезвоним вам в течение одного рабочего дня.</p>
+                <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          
+          // Сброс формы
+          e.target.reset();
+          document.getElementById('dropzoneFiles').innerHTML = '';
+          document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
+          document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('valid', 'error'));
+          document.getElementById('desc-count').textContent = '0';
+          document.querySelector('.form-hint').classList.remove('success');
+        } else {
+          // Обработка ошибок от сервера
+          if (result.error === 'rate_limit') {
+            showErrorModal('Подождите', result.message || 'Слишком много запросов. Попробуйте позже.');
+          } else {
+            showErrorModal('Ошибка', result.message || 'Произошла ошибка при отправке.');
+          }
+        }
+      } catch (error) {
+        console.error('Submit error:', error);
+        showErrorModal('Ошибка', 'Не удалось отправить заявку. Проверьте подключение к интернету.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+
+    // Показать модальное окно ошибки
+    function showErrorModal(title, message) {
       const modal = document.createElement('div');
       modal.className = 'modal-overlay';
       modal.innerHTML = `
         <div class="modal-content glass-card">
           <div class="success-modal">
-            <div class="success-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"/>
+            <div class="success-icon" style="background:rgba(239,68,68,.15)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
               </svg>
             </div>
-            <h3>Спасибо!</h3>
-            <p>Мы перезвоним вам в течение одного рабочего дня.</p>
+            <h3>${title}</h3>
+            <p>${message}</p>
             <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
           </div>
         </div>
       `;
-      
       document.body.appendChild(modal);
-      e.target.reset();
-      document.getElementById('dropzoneFiles').innerHTML = '';
-      
-      // Сбросить стили валидации
-      document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
-      document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('valid', 'error'));
-      document.getElementById('desc-count').textContent = '0';
-      document.querySelector('.form-hint').classList.remove('success');
     }
   </script>
 </body>
