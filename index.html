@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3br — 3D печать, сканирование, моделирование, реверс-инжиниринг и рекламные решения | Барановичи, РБ</title>
+  <meta name="description" content="3brbelarus — профессиональная 3D печать, 3D сканирование, моделирование и реверс-инжиниринг, а также рекламные стенды, постеры, вывески и конструкции любой сложности. Барановичи, работаем по всей Беларуси." />
+  <meta name="keywords" content="3D печать, 3D сканирование, моделирование, реверс-инжиниринг, реклама, рекламные стенды, постеры, вывески, лайтбоксы, Барановичи, Беларусь, прототипирование, FDM, CAD, PETG, PLA, ABS, ASA" />
+  <link rel="icon" href="./img/favicon-32x32.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Критичные стили для preloader (fallback если CSS не загрузился) -->
+  <style>
+    .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:#0f1216;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:10000;transition:opacity 0.5s, visibility 0.5s}
+    .preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .preloader-logo{width:80px;height:80px;border-radius:16px;margin-bottom:24px}
+    .preloader-title{font-size:24px;font-weight:700;color:#e5e7eb;margin-bottom:32px;font-family:Inter,system-ui,sans-serif}
+    .preloader-progress{width:200px;height:4px;background:#11161d;border-radius:4px;overflow:hidden}
+    .preloader-bar{height:100%;width:0%;background:linear-gradient(90deg,#38bdf8,#a855f7);border-radius:4px}
+    .preloader-text{margin-top:16px;font-size:13px;color:#9ca3af;font-family:Inter,system-ui,sans-serif}
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <img src="./img/android-chrome-512x512.png" alt="3br" class="preloader-logo">
+    <div class="preloader-title">3br</div>
+    <div class="preloader-progress">
+      <div class="preloader-bar" id="preloaderBar"></div>
+    </div>
+    <div class="preloader-text" id="preloaderText">Загрузка...</div>
+  </div>
+  
+  <!-- Fallback: скрыть preloader если JS отключён -->
+  <noscript>
+    <style>.preloader{display:none!important}</style>
+  </noscript>
+
+  <!-- SVG-спрайт (иконки) -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </symbol>
+    <symbol id="icon-tiktok" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+    </symbol>
+  </svg>
+
+  <!-- Частицы для фона -->
+  <div id="particles" aria-hidden="true"></div>
+
+  <!-- Glow-элемент, который следит за курсором -->
+  <div id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- Кнопка "Наверх" -->
+  <button id="scrollToTop" class="scroll-top" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img src="./img/android-chrome-512x512.png" alt="Лого 3br" class="logo-img" width="72" height="72">
+        <div>
+          <h1>3br</h1>
+          <small>3D печать и рекламные конструкции — Барановичи, работаем по всей РБ</small>
+        </div>
+      </div>
+      <nav class="menu" aria-label="Главное меню">
+        <a href="#services">Услуги</a>
+        <a href="#advertising">Реклама</a>
+        <a href="#materials">Материалы</a>
+        <a href="#process">Процесс</a>
+        <a href="#portfolio">Портфолио</a>
+        <a href="#contact" class="cta secondary">Связаться</a>
+      </nav>
+      <div class="actions">
+        <button class="cta magnetic" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Рассчитать проект</button>
+        <button id="themeToggle" class="icon-btn" aria-label="Переключить тему">
+          <svg class="icon" aria-hidden="true"><use href="#icon-sun"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container wrap">
+      <div class="reveal">
+        <!-- Убрана анимация печати текста -->
+        <h2 class="gradient-text">3D печать, сканирование, моделирование, реверс‑инжиниринг и рекламные решения под ключ</h2>
+        <p>От идеи и 3D до готового изделия и рекламной конструкции. Барановичи, доставка и монтаж по всей Беларуси.</p>
+        <div class="badges">
+          <span class="badge floating">Сроки от 24 часов</span>
+          <span class="badge floating">Точность до 0.05 мм</span>
+          <span class="badge floating">CAD/CAE full‑cycle</span>
+          <span class="badge floating">3D печать FDM</span>
+          <span class="badge floating">Рекламные стенды и постеры</span>
+        </div>
+        <div class="inline">
+          <button class="cta magnetic ripple" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Запросить расчет</button>
+          <a class="cta secondary magnetic" href="#portfolio">Смотреть работы</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal glass-card floating">
+        <h4 style="margin:0 0 8px">Почему 3br</h4>
+        <ul class="list">
+          <li><b>Индивидуально:</b> подбор технологии под геометрию, нагрузку, бюджет и цели рекламы</li>
+          <li><b>Инженерно:</b> реверс‑инжиниринг, допуски/посадки, подготовка к производству</li>
+          <li><b>Под ключ:</b> 3D скан, CAD‑модель, печать, сборка, пост‑обработка и монтаж рекламы</li>
+        </ul>
+        <div class="kpi">
+          <div class="item"><b data-target="300">0</b><span class="muted"> деталей напечатано</span></div>
+          <div class="item"><b data-target="50">0</b><span class="muted"> проектов с реверсом</span></div>
+          <div class="item"><b data-target="100">0</b><span class="muted"> рекламных макетов и стендов</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h3 class="gradient-text">Услуги</h3>
+      <div class="grid">
+        <div class="card reveal card-3d" data-bg="1">
+          <h4>3D сканирование</h4>
+          <p class="muted">Точное оцифровывание изделий, создание облаков точек и поверхностей для CAD. Выезд к заказчику.</p>
+          <ul class="list">
+            <li><b>Точность:</b> до 0.05–0.1 мм</li>
+            <li><b>Выходные данные:</b> STL, OBJ, STEP</li>
+            <li><b>Выездное сканирование:</b> крупногабаритных объектов</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d" data-bg="2">
+          <h4>3D моделирование (CAD)</h4>
+          <p class="muted">Параметрическое моделирование, допуски/посадки, подготовка к печати и производству.</p>
+          <ul class="list">
+            <li><b>Форматы:</b> STEP, IGES, STL</li>
+            <li><b>Аналитика:</b> прочностные и технологические проверки</li>
+            <li><b>Документация:</b> чертежи, спецификации</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d" data-bg="3">
+          <h4>Реверс‑инжиниринг</h4>
+          <p class="muted">Восстановление геометрии по образцу/скану, адаптация под современные процессы.</p>
+          <ul class="list">
+            <li><b>Совместимость:</b> проверка посадок и допусков</li>
+            <li><b>Оптимизация:</b> облегчение, усиление, конверсия материалов</li>
+            <li><b>Подготовка:</b> trial‑печати и контрольные сборки</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid" style="margin-top:16px">
+        <div class="card reveal card-3d" data-bg="4">
+          <h4>3D печать FDM</h4>
+          <p class="muted">Быстро и бюджетно для функциональных прототипов и малых серий.</p>
+          <span class="pill">PLA</span><span class="pill">PETG</span><span class="pill">ABS</span><span class="pill">ASA</span><span class="pill">Nylon</span><span class="pill">CF‑filled</span>
+        </div>
+        <div class="card reveal card-3d" data-bg="5">
+          <h4>Рекламные решения</h4>
+          <p class="muted">Производство рекламы любой сложности: вывески, постеры, световые панели.</p>
+          <span class="pill">Вывески</span><span class="pill">Лайтбоксы</span><span class="pill">Постеры</span><span class="pill">Arduino</span>
+        </div>
+        <div class="card reveal card-3d" data-bg="6">
+          <h4>Авто‑кастомизация</h4>
+          <p class="muted">Кастомные пластиковые детали для автомобилей и техники под заказ.</p>
+          <span class="pill">Шестерни</span><span class="pill">Накладки</span><span class="pill">Панели</span><span class="pill">Кнопки</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="advertising">
+    <div class="container">
+      <h3 class="gradient-text">Рекламные решения</h3>
+      <div class="columns">
+        <div class="card reveal card-3d">
+          <h4>Производство и дизайн</h4>
+          <ul class="list">
+            <li><b>Стенды:</b> напольные, настольные, POS‑материалы, промо‑островки</li>
+            <li><b>Постеры:</b> широкоформатная печать, ламинация, фреймы</li>
+            <li><b>Вывески:</b> лайтбоксы, объёмные буквы, композит, акрил</li>
+            <li><b>Arduino:</b> интерактивные дисплеи, подсветка, автоматизация</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Кастомные решения</h4>
+          <ul class="list">
+            <li><b>Arduino:</b> управляющая электроника, датчики, дисплеи</li>
+            <li><b>Автоматизация:</b> умные системы, контроллеры, реле</li>
+            <li><b>Интерактив:</b> кнопки, сенсоры, LED‑подсветка</li>
+            <li><b>Консультации:</b> подбор решений под ваши задачи</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note" style="margin-top:16px">Совмещаем инженерную точность 3D и маркетинговые задачи: конструкция безопасна, визуал — читабелен, дедлайн — соблюден.</p>
+    </div>
+  </section>
+
+  <section id="materials">
+    <div class="container">
+      <h3 class="gradient-text">Материалы и допуски</h3>
+      <div class="columns">
+        <div class="card reveal card-3d">
+          <h4>Рекомендации по выбору</h4>
+          <ul class="list">
+            <li><b>Прочность/нагрузка:</b> Nylon, PETG, CF‑композиты</li>
+            <li><b>Стойкость к погоде:</b> Композиты, PETG</li>
+            <li><b>Точность и гладкость:</b> мелкие сопла 0.2 мм</li>
+            <li><b>Температура:</b> ABS/СF-композиты</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Типовые допуски</h4>
+          <ul class="list">
+            <li><b>Стандартное сопло:</b> 0.4 мм, ±0.2–0.3 мм точность</li>
+            <li><b>Мелкое сопло:</b> 0.2 мм, ±0.1–0.15 мм для деталей</li>
+            <li><b>Усадка PLA:</b> ~0.3–0.5%, минимальная деформация</li>
+            <li><b>Усадка ABS/ASA:</b> ~0.4–0.8%</li>
+            <li><b>Рекламные узлы:</b> допуски крепежа и электроники по ТЗ</li>
+          </ul>
+          <p class="note">Фактические допуски зависят от геометрии, материала и пост‑обработки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="container">
+      <h3 class="gradient-text">Как мы работаем</h3>
+      <div class="columns">
+        <div class="card process reveal card-3d">
+          <div class="step"><div class="num">1</div><div><b>Бриф и оценка:</b> получаем ТЗ, фото/сканы, обсуждаем требования и сроки.</div></div>
+          <div class="step"><div class="num">2</div><div><b>Скан/модель:</b> выполняем 3D сканирование или CAD‑моделирование.</div></div>
+          <div class="step"><div class="num">3</div><div><b>Параметры печати:</b> выбираем сопло, слой, материал, согласуем допуски.</div></div>
+          <div class="step"><div class="num">4</div><div><b>Пробная печать:</b> контрольная деталь, сборка, корректировки по посадкам.</div></div>
+          <div class="step"><div class="num">5</div><div><b>Серия и доставка:</b> финальная партия, упаковка, доставка по РБ.</div></div>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Пост‑обработка</h4>
+          <ul class="list">
+            <li><b>Механика:</b> шлифование, сверловка, нарезка резьбы</li>
+            <li><b>Финиш:</b> грунт, покраска, хим. сглаживание (для ABS)</li>
+            <li><b>Сборка:</b> вставки, втулки, резьбовые элементы</li>
+            <li><b>Реклама:</b> печать графики, аппликации, подсветка, проводка</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h3 class="gradient-text">Портфолио</h3>
+      <p class="muted">Примеры 3D и рекламных работ: прототипы, корпуса, функциональные детали, стенды, постеры, вывески.</p>
+      <div class="grid">
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/3d1.jpg" alt="Корпус датчика"></div>
+          <div class="portfolio-overlay">
+            <h4>Зубчатые колёса(Шестерни)</h4>
+            <p class="muted">Композиты и нейлон</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/3d2.jpg" alt="Прототип кронштейна"></div>
+          <div class="portfolio-overlay">
+            <h4>Фигурка marvel</h4>
+            <p class="muted">PETG, Печатаем любую художку</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/3d3.jpg" alt="Мастер‑модель"></div>
+          <div class="portfolio-overlay">
+            <h4>Индивидуальное крепление</h4>
+            <p class="muted">CF-композит, полностью смоделировано по эскизу клиента</p>
+          </div>
+        </div>
+      </div>
+      <div class="grid" style="margin-top:16px">
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/ad1.jpg" alt="Рекламный стенд"></div>
+          <div class="portfolio-overlay">
+            <h4>Накладка на автомобильный диск</h4>
+            <p class="muted">PETG, отсканирована, восстановлена, напечатана</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/ad2.jpg" alt="Постер для витрины"></div>
+          <div class="portfolio-overlay">
+            <h4>Переходная рамка дисплея автомобиля</h4>
+            <p class="muted">PETG с нуля отрисована и напечатана</p>
+          </div>
+        </div>
+        <div class="card reveal card-3d portfolio-card">
+          <div class="portfolio-img"><img src="./img/ad3.jpg" alt="Лайтбокс с 3D элементом"></div>
+          <div class="portfolio-overlay">
+            <h4>Накладка на детский мотошлем</h4>
+            <p class="muted">TPU, Смоделирована и напечатана из гибкого пластика</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h3 class="gradient-text">Связаться с нами</h3>
+      <div class="contact">
+        <div class="card reveal card-3d">
+          <form id="quoteForm" onsubmit="submitForm(event)" novalidate>
+            <div class="columns">
+              <div class="form-group">
+                <label for="name">Ваше имя</label>
+                <input id="name" type="text" name="name" placeholder="Иван" required />
+                <span class="form-error" id="name-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">Email <span class="optional">(необязательно)</span></label>
+                <input id="email" type="email" name="email" placeholder="ivan@example.com" />
+                <span class="form-error" id="email-error"></span>
+              </div>
+            </div>
+            <div class="columns" style="margin-top:10px">
+              <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input id="phone" type="tel" name="phone" placeholder="+375 (29) 123-45-67" required pattern="^\+375\s?\(?\d{2}\)?\s?\d{3}[\s-]?\d{2}[\s-]?\d{2}$" />
+                <span class="form-error" id="phone-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="service">Услуга</label>
+                <select id="service" name="service">
+                  <option>3D печать</option>
+                  <option>3D сканирование</option>
+                  <option>CAD‑моделирование</option>
+                  <option>Реверс‑инжиниринг</option>
+                  <option>Рекламный стенд/постер</option>
+                  <option>Вывеска/лайтбокс</option>
+                  <option>Авто‑кастомизация</option>
+                  <option>Arduino проекты</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:10px">
+              <label for="desc">Описание задачи</label>
+              <textarea id="desc" name="desc" rows="4" placeholder="Кратко опишите деталь/конструкцию, материал, место установки, требования по прочности/точности/визуалу" required minlength="25"></textarea>
+              <span class="form-error" id="desc-error"></span>
+              <span class="form-hint">Минимум 25 символов (<span id="desc-count">0</span>/25)</span>
+            </div>
+            <div style="margin-top:10px">
+              <label>Файлы <span class="optional">(необязательно)</span></label>
+              <div class="dropzone" id="dropzone">
+                <input type="file" id="fileInput" name="files" multiple accept=".stl,.step,.stp,.iges,.igs,.obj,.jpg,.jpeg,.png,.pdf" hidden>
+                <div class="dropzone-content">
+                  <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                  </svg>
+                  <p class="dropzone-text">Перетащите файлы сюда<br>или <span class="dropzone-link">выберите с устройства</span></p>
+                  <p class="dropzone-formats">STL, STEP, IGES, OBJ, JPG, PNG, PDF</p>
+                </div>
+                <div class="dropzone-files" id="dropzoneFiles"></div>
+              </div>
+            </div>
+            <div class="inline" style="margin-top:12px">
+              <button class="cta magnetic ripple" type="submit">Отправить запрос</button>
+              <span class="note">Мы ответим в течение рабочего дня</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="card reveal card-3d">
+          <h4>Наши контакты</h4>
+          <ul class="list">
+            <li><b>Email:</b> info@3brbelarus.by</li>
+            <li><b>Телефон:</b> +375 (29) 250‑95‑55</li>
+            <li><b>Адрес:</b> Барановичи, Беларусь</li>
+            <li><b>График:</b> Пн–Пт 9:00–18:00</li>
+            <li><b>Доставка:</b> по всей РБ (СДЭК/Белпочта/Европочта)</li>
+          </ul>
+          <div class="map" id="map" aria-label="Карта Барановичей"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-copy">© 3br, 2026</span>
+        <div class="footer-social">
+          <span class="footer-social-title">Мы в социальных сетях</span>
+          <div class="footer-social-links">
+            <a href="https://www.instagram.com/3brbelarus/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+              <svg class="social-icon"><use href="#icon-instagram"></use></svg>
+            </a>
+            <a href="https://www.tiktok.com/@3brbelarus" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+              <svg class="social-icon"><use href="#icon-tiktok"></use></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Частицы для фона - два типа: дрейфующие (статичные) и всплывающие (динамические)
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      if (!particlesContainer) return;
+      
+      const isMobile = window.innerWidth < 768;
+      const driftCount = isMobile ? 15 : 30;  // Статичные дрейфующие
+      const floatCount = isMobile ? 10 : 20;  // Динамические всплывающие
+      
+      // 1. Создаём дрейфующие партиклы (видны сразу при загрузке)
+      for (let i = 0; i < driftCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle particle-drift';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = Math.random() * 100 + 'vh';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (6 + Math.random() * 6) + 's';
+        particle.style.opacity = 0.15 + Math.random() * 0.25;
+        particle.style.width = (3 + Math.random() * 3) + 'px';
+        particle.style.height = particle.style.width;
+        particlesContainer.appendChild(particle);
+      }
+      
+      // 2. Создаём всплывающие партиклы (идут снизу вверх)
+      for (let i = 0; i < floatCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle particle-float';
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (15 + Math.random() * 15) + 's';
+        particle.style.opacity = 0.1 + Math.random() * 0.2;
+        particle.style.width = (2 + Math.random() * 3) + 'px';
+        particle.style.height = particle.style.width;
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Магнитные кнопки
+    function initMagneticButtons() {
+      const buttons = document.querySelectorAll('.magnetic');
+      
+      buttons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const deltaX = (x - centerX) / centerX * 10;
+          const deltaY = (y - centerY) / centerY * 10;
+          
+          btn.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate(0, 0)';
+        });
+      });
+    }
+
+    // Интерактивный параллакс
+    function initParallax() {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        hero.style.transform = `translateY(${rate}px)`;
+      });
+    }
+
+    // Анимированный счетчик чисел
+    function animateNumbers() {
+      const counters = document.querySelectorAll('.kpi b[data-target]');
+      
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        let current = 0;
+        const increment = target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + '+';
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + '+';
+          }
+        }, 20);
+      });
+    }
+
+    // Интерактивная карта
+    function initInteractiveMap() {
+      const map = document.getElementById('map');
+      if (!map) return;
+
+      map.innerHTML = `
+        <div style="padding:20px;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:center">
+          <h4 style="margin:0 0 10px">Барановичи, Беларусь</h4>
+          <p style="color:var(--muted);margin:0 0 15px">Доставка по всей РБ</p>
+          <button class="cta magnetic" onclick="showDeliveryModal()">Рассчитать доставку</button>
+        </div>
+      `;
+    }
+
+    // Модальное окно
+    function showDeliveryModal() {
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content glass-card">
+          <h3>Расчет доставки</h3>
+          <p>Свяжитесь с нами для точного расчета стоимости доставки</p>
+          <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+    }
+
+    // Улучшенный glow эффект
+    function enhanceCursorGlow() {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow) return;
+      
+      // Проверяем, является ли устройство touch-устройством
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        // На мобильных устройствах просто скрываем свечение
+        glow.style.display = 'none';
+        return;
+      }
+      
+      // Для десктопа - следование за курсором
+      let mouseX = 0, mouseY = 0;
+      let glowX = 0, glowY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animate() {
+        // Плавное следование (увеличена скорость с 0.1 до 0.25)
+        glowX += (mouseX - glowX - 100) * 0.25;
+        glowY += (mouseY - glowY - 100) * 0.25;
+        
+        glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
+        
+        // Изменение размера при движении
+        const deltaX = Math.abs(mouseX - glowX);
+        const deltaY = Math.abs(mouseY - glowY);
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const scale = 1 + distance * 0.001;
+        
+        glow.style.transform += ` scale(${scale})`;
+        
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // Кнопка "Наверх"
+    function initScrollToTop() {
+      const scrollBtn = document.getElementById('scrollToTop');
+      if (!scrollBtn) return;
+      
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollBtn.classList.add('visible');
+        } else {
+          scrollBtn.classList.remove('visible');
+        }
+      });
+      
+      scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    }
+
+    // Подсветка активного пункта меню при скролле
+    function initActiveMenuHighlight() {
+      const sections = document.querySelectorAll('section[id]');
+      const menuLinks = document.querySelectorAll('.menu a[href^="#"]');
+      
+      if (!sections.length || !menuLinks.length) return;
+      
+      // Увеличен offset для корректной работы с scroll-margin-top
+      const DETECTION_OFFSET = 200;
+
+      function updateActiveMenu() {
+        const scrollPos = window.scrollY + DETECTION_OFFSET;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        
+        // Проверяем конец страницы
+        const isAtBottom = window.scrollY + windowHeight >= docHeight - 50;
+        
+        if (isAtBottom) {
+          menuLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#portfolio') {
+              link.classList.add('active');
+            }
+          });
+          return;
+        }
+        
+        // Ищем последнюю секцию, начало которой <= scrollPos
+        let activeSection = null;
+        
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionId = section.getAttribute('id');
+          
+          if (sectionTop <= scrollPos) {
+            activeSection = sectionId;
+          }
+        });
+        
+        // Обновляем подсветку
+        menuLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (activeSection && href === '#' + activeSection) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+        
+        // Если над первой секцией - подсвечиваем services
+        if (!activeSection) {
+          menuLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#services') {
+              link.classList.add('active');
+            }
+          });
+        }
+      }
+
+      window.addEventListener('scroll', updateActiveMenu);
+      updateActiveMenu();
+    }
+
+    // Эффект ripple для кнопок
+    function initRippleButtons() {
+      const buttons = document.querySelectorAll('.ripple');
+      
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.cssText = `
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+          `;
+          ripple.classList.add('ripple-effect');
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+    }
+
+    // Переключение темы с SVG-иконкой и сохранением состояния
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      
+      const iconUse = btn.querySelector('use');
+      const saved = localStorage.getItem('theme');
+      if (saved) root.setAttribute('data-theme', saved);
+
+      function updateIcon() {
+        const current = root.getAttribute('data-theme');
+        iconUse.setAttribute('href', current === 'dark' ? '#icon-sun' : '#icon-moon');
+      }
+      updateIcon();
+
+      btn.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateIcon();
+      });
+    })();
+
+    // Плавное появление элементов при скролле
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('reveal-in');
+            io.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.15});
+      els.forEach(el=>io.observe(el));
+    })();
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', () => {
+      initPreloader();
+      createParticles();
+      initMagneticButtons();
+      initParallax();
+      initInteractiveMap();
+      enhanceCursorGlow();
+      initScrollToTop();
+      initRippleButtons();
+      initActiveMenuHighlight();
+      initDropzone();
+      initFormValidation();
+      
+      // Запускаем анимацию чисел когда секция в поле зрения
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateNumbers();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      
+      const kpiSection = document.querySelector('.kpi');
+      if (kpiSection) observer.observe(kpiSection);
+    });
+
+    // Валидация формы
+    function initFormValidation() {
+      const form = document.getElementById('quoteForm');
+      const phoneInput = document.getElementById('phone');
+      const descInput = document.getElementById('desc');
+      const descCount = document.getElementById('desc-count');
+      
+      // Маска для телефона
+      phoneInput.addEventListener('input', (e) => {
+        let value = e.target.value.replace(/\D/g, '');
+        
+        if (value.length > 0) {
+          if (value.startsWith('375')) {
+            value = value.substring(3);
+          }
+          
+          let formatted = '+375';
+          if (value.length > 0) formatted += ' (' + value.substring(0, 2);
+          if (value.length >= 2) formatted += ') ' + value.substring(2, 5);
+          if (value.length >= 5) formatted += '-' + value.substring(5, 7);
+          if (value.length >= 7) formatted += '-' + value.substring(7, 9);
+          
+          e.target.value = formatted;
+        }
+        
+        validateField(phoneInput, 'phone');
+      });
+      
+      // Счётчик символов для описания
+      descInput.addEventListener('input', (e) => {
+        const count = e.target.value.length;
+        descCount.textContent = count;
+        
+        const hint = descCount.parentElement;
+        if (count >= 25) {
+          hint.classList.add('success');
+        } else {
+          hint.classList.remove('success');
+        }
+        
+        validateField(descInput, 'desc');
+      });
+      
+      // Валидация имени при вводе
+      document.getElementById('name').addEventListener('input', (e) => {
+        validateField(e.target, 'name');
+      });
+      
+      // Валидация email при вводе
+      document.getElementById('email').addEventListener('input', (e) => {
+        if (e.target.value) {
+          validateField(e.target, 'email');
+        } else {
+          clearError('email');
+        }
+      });
+    }
+    
+    function validateField(input, type) {
+      const errorEl = document.getElementById(type + '-error');
+      let isValid = true;
+      let errorMsg = '';
+      
+      switch (type) {
+        case 'name':
+          if (!input.value.trim()) {
+            isValid = false;
+            errorMsg = 'Введите ваше имя';
+          } else if (input.value.trim().length < 2) {
+            isValid = false;
+            errorMsg = 'Имя слишком короткое';
+          }
+          break;
+          
+        case 'phone':
+          const phoneRegex = /^\+375\s?\(\d{2}\)\s?\d{3}-\d{2}-\d{2}$/;
+          const cleanPhone = input.value.replace(/\D/g, '');
+          if (!input.value) {
+            isValid = false;
+            errorMsg = 'Введите номер телефона';
+          } else if (cleanPhone.length !== 12) {
+            isValid = false;
+            errorMsg = 'Введите полный номер: +375 (XX) XXX-XX-XX';
+          } else if (!phoneRegex.test(input.value)) {
+            isValid = false;
+            errorMsg = 'Неверный формат номера';
+          }
+          break;
+          
+        case 'email':
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (input.value && !emailRegex.test(input.value)) {
+            isValid = false;
+            errorMsg = 'Введите корректный email';
+          }
+          break;
+          
+        case 'desc':
+          if (!input.value.trim()) {
+            isValid = false;
+            errorMsg = 'Опишите вашу задачу';
+          } else if (input.value.trim().length < 25) {
+            isValid = false;
+            errorMsg = `Добавьте ещё ${25 - input.value.trim().length} символов`;
+          }
+          break;
+      }
+      
+      if (isValid) {
+        input.classList.remove('error');
+        input.classList.add('valid');
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.classList.remove('visible');
+        }
+      } else {
+        input.classList.remove('valid');
+        input.classList.add('error');
+        if (errorEl) {
+          errorEl.textContent = errorMsg;
+          errorEl.classList.add('visible');
+        }
+      }
+      
+      return isValid;
+    }
+    
+    function clearError(type) {
+      const input = document.getElementById(type);
+      const errorEl = document.getElementById(type + '-error');
+      if (input) {
+        input.classList.remove('error', 'valid');
+      }
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('visible');
+      }
+    }
+
+    // Preloader с прогресс-баром и fail-safe таймаутом
+    function initPreloader() {
+      const preloader = document.getElementById('preloader');
+      const bar = document.getElementById('preloaderBar');
+      const text = document.getElementById('preloaderText');
+      
+      // Fail-safe: скрываем preloader через максимум 5 секунд в любом случае
+      const failSafeTimeout = setTimeout(() => {
+        if (preloader && !preloader.classList.contains('hidden')) {
+          preloader.classList.add('hidden');
+        }
+      }, 5000);
+      
+      const steps = [
+        { progress: 20, text: 'Загрузка стилей...' },
+        { progress: 40, text: 'Загрузка шрифтов...' },
+        { progress: 60, text: 'Инициализация...' },
+        { progress: 80, text: 'Почти готово...' },
+        { progress: 100, text: 'Готово!' }
+      ];
+      
+      let currentStep = 0;
+      
+      function nextStep() {
+        if (currentStep < steps.length) {
+          bar.style.width = steps[currentStep].progress + '%';
+          text.textContent = steps[currentStep].text;
+          currentStep++;
+          setTimeout(nextStep, 200 + Math.random() * 300);
+        } else {
+          setTimeout(() => {
+            preloader.classList.add('hidden');
+            clearTimeout(failSafeTimeout); // Отменяем fail-safe если всё прошло успешно
+          }, 300);
+        }
+      }
+      
+      setTimeout(nextStep, 100);
+    }
+
+    // Dropzone для файлов
+    function initDropzone() {
+      const dropzone = document.getElementById('dropzone');
+      const fileInput = document.getElementById('fileInput');
+      const filesContainer = document.getElementById('dropzoneFiles');
+      
+      if (!dropzone || !fileInput) return;
+      
+      let selectedFiles = [];
+      
+      // Клик по dropzone
+      dropzone.addEventListener('click', () => fileInput.click());
+      
+      // Drag & Drop события
+      dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+      });
+      
+      dropzone.addEventListener('dragleave', () => {
+        dropzone.classList.remove('dragover');
+      });
+      
+      dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+      });
+      
+      // Выбор файлов
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+      
+      function handleFiles(files) {
+        for (let file of files) {
+          if (!selectedFiles.find(f => f.name === file.name)) {
+            selectedFiles.push(file);
+            renderFile(file);
+          }
+        }
+      }
+      
+      function renderFile(file) {
+        const fileEl = document.createElement('div');
+        fileEl.className = 'dropzone-file';
+        fileEl.innerHTML = `
+          <span class="dropzone-file-name">${file.name}</span>
+          <button type="button" class="dropzone-file-remove" aria-label="Удалить">×</button>
+        `;
+        
+        fileEl.querySelector('.dropzone-file-remove').addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedFiles = selectedFiles.filter(f => f.name !== file.name);
+          fileEl.remove();
+        });
+        
+        filesContainer.appendChild(fileEl);
+      }
+    }
+
+    // Отправка формы
+    async function submitForm(e) {
+      e.preventDefault();
+      
+      // Валидация всех полей
+      const nameInput = document.getElementById('name');
+      const phoneInput = document.getElementById('phone');
+      const emailInput = document.getElementById('email');
+      const descInput = document.getElementById('desc');
+      const serviceInput = document.getElementById('service');
+      
+      const isNameValid = validateField(nameInput, 'name');
+      const isPhoneValid = validateField(phoneInput, 'phone');
+      const isEmailValid = emailInput.value ? validateField(emailInput, 'email') : true;
+      const isDescValid = validateField(descInput, 'desc');
+      
+      if (!isNameValid || !isPhoneValid || !isEmailValid || !isDescValid) {
+        // Скролл к первому ошибочному полю
+        const firstError = document.querySelector('.form-error.visible');
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      // Блокируем кнопку отправки
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправка...';
+      
+      try {
+        // Подготовка данных
+        const formData = new FormData();
+        formData.append('name', nameInput.value.trim());
+        formData.append('phone', phoneInput.value.trim());
+        formData.append('email', emailInput.value.trim());
+        formData.append('service', serviceInput.value);
+        formData.append('desc', descInput.value.trim());
+        
+        // Отправка на API
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Показываем модальное окно успеха
+          const modal = document.createElement('div');
+          modal.className = 'modal-overlay';
+          modal.innerHTML = `
+            <div class="modal-content glass-card">
+              <div class="success-modal">
+                <div class="success-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 6L9 17l-5-5"/>
+                  </svg>
+                </div>
+                <h3>Спасибо!</h3>
+                <p>Мы перезвоним вам в течение одного рабочего дня.</p>
+                <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+          
+          // Сброс формы
+          e.target.reset();
+          document.getElementById('dropzoneFiles').innerHTML = '';
+          document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
+          document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('valid', 'error'));
+          document.getElementById('desc-count').textContent = '0';
+          document.querySelector('.form-hint').classList.remove('success');
+        } else {
+          // Обработка ошибок от сервера
+          if (result.error === 'rate_limit') {
+            showErrorModal('Подождите', result.message || 'Слишком много запросов. Попробуйте позже.');
+          } else {
+            showErrorModal('Ошибка', result.message || 'Произошла ошибка при отправке.');
+          }
+        }
+      } catch (error) {
+        console.error('Submit error:', error);
+        showErrorModal('Ошибка', 'Не удалось отправить заявку. Проверьте подключение к интернету.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+
+    // Показать модальное окно ошибки
+    function showErrorModal(title, message) {
+      const modal = document.createElement('div');
+      modal.className = 'modal-overlay';
+      modal.innerHTML = `
+        <div class="modal-content glass-card">
+          <div class="success-modal">
+            <div class="success-icon" style="background:rgba(239,68,68,.15)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <h3>${title}</h3>
+            <p>${message}</p>
+            <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+  </script>
+</body>
+</html>
