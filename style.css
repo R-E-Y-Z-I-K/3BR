@@ -41,21 +41,51 @@ section[id]{scroll-margin-top:100px}
   height: 100%;
   pointer-events: none;
   z-index: -1;
+  overflow: hidden;
 }
 
+/* Статичные стартовые партиклы - дрейфуют на месте */
 .particle {
   position: absolute;
   width: 4px;
   height: 4px;
   background: var(--accent);
   border-radius: 50%;
+}
+
+/* Дрейфующие партиклы (стартовые) */
+.particle-drift {
+  animation: drift 8s ease-in-out infinite;
+}
+
+/* Всплывающие партиклы (динамические) */
+.particle-float {
   animation: float-particle 20s infinite linear;
+}
+
+@keyframes drift {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1); 
+    opacity: 0.2;
+  }
+  25% { 
+    transform: translate(10px, -15px) scale(1.2); 
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translate(-5px, -25px) scale(0.9); 
+    opacity: 0.3;
+  }
+  75% { 
+    transform: translate(15px, -10px) scale(1.1); 
+    opacity: 0.35;
+  }
 }
 
 @keyframes float-particle {
   0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
   100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
 
