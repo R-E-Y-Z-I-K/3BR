@@ -17,8 +17,24 @@
     .preloader-logo{width:80px;height:80px;border-radius:16px;margin-bottom:24px}
     .preloader-title{font-size:24px;font-weight:700;color:#e5e7eb;margin-bottom:32px;font-family:Inter,system-ui,sans-serif}
     .preloader-progress{width:200px;height:4px;background:#11161d;border-radius:4px;overflow:hidden}
-    .preloader-bar{height:100%;width:0%;background:linear-gradient(90deg,#38bdf8,#a855f7);border-radius:4px}
+    .preloader-bar{height:100%;width:0%;background:linear-gradient(90deg,#38bdf8,#a855f7);border-radius:4px;transition:none}
     .preloader-text{margin-top:16px;font-size:13px;color:#9ca3af;font-family:Inter,system-ui,sans-serif}
+    /* Изображение над карточкой */
+    .card-image-top{border-radius:12px 12px 0 0;overflow:hidden;line-height:0;}
+    .card-image-top img{width:100%;height:200px;object-fit:cover;transition:transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);}
+    .reveal:hover .card-image-top img{transform:scale(1.05);}
+    /* Выравнивание карточек в разделе Рекламные решения - адаптивно */
+    @media (min-width: 769px) {
+      #advertising .columns{display:grid !important;grid-template-columns:1fr 1fr;align-items:stretch;}
+      #advertising .columns > div{display:flex;flex-direction:column;height:100%;}
+      #advertising .columns .card{flex:1;display:flex;flex-direction:column;}
+      #advertising .columns .card ul{flex:1;margin:0;}
+    }
+    @media (max-width: 768px) {
+      #advertising .columns{display:flex !important;flex-direction:column;}
+      #advertising .columns > div{display:flex;flex-direction:column;margin-bottom:16px;}
+      #advertising .columns > div:last-child{margin-bottom:0;}
+    }
   </style>
 </head>
 <body>
@@ -81,7 +97,6 @@
       <nav class="menu" aria-label="Главное меню">
         <a href="#services">Услуги</a>
         <a href="#advertising">Реклама</a>
-        <a href="#materials">Материалы</a>
         <a href="#process">Процесс</a>
         <a href="#portfolio">Портфолио</a>
         <a href="#contact" class="cta secondary">Связаться</a>
@@ -187,54 +202,38 @@
     <div class="container">
       <h3 class="gradient-text">Рекламные решения</h3>
       <div class="columns">
-        <div class="card reveal card-3d">
-          <h4>Производство и дизайн</h4>
-          <ul class="list">
-            <li><b>Стенды:</b> напольные, настольные, POS‑материалы, промо‑островки</li>
-            <li><b>Постеры:</b> широкоформатная печать, ламинация, фреймы</li>
-            <li><b>Вывески:</b> лайтбоксы, объёмные буквы, композит, акрил</li>
-            <li><b>Arduino:</b> интерактивные дисплеи, подсветка, автоматизация</li>
-          </ul>
+        <!-- Карточка 1: Производство и дизайн с фото -->
+        <div class="reveal">
+          <div class="card-image-top">
+            <img src="./img/advertising-1.jpg" alt="Производство и дизайн">
+          </div>
+          <div class="card card-3d" style="border-radius:0 0 12px 12px;">
+            <h4>Производство и дизайн</h4>
+            <ul class="list">
+              <li><b>Стенды:</b> напольные, настольные, POS‑материалы, промо‑островки</li>
+              <li><b>Постеры:</b> широкоформатная печать, ламинация, фреймы</li>
+              <li><b>Вывески:</b> лайтбоксы, объёмные буквы, композит, акрил</li>
+              <li><b>Arduino:</b> интерактивные дисплеи, подсветка, автоматизация</li>
+            </ul>
+          </div>
         </div>
-        <div class="card reveal card-3d">
-          <h4>Кастомные решения</h4>
-          <ul class="list">
-            <li><b>Arduino:</b> управляющая электроника, датчики, дисплеи</li>
-            <li><b>Автоматизация:</b> умные системы, контроллеры, реле</li>
-            <li><b>Интерактив:</b> кнопки, сенсоры, LED‑подсветка</li>
-            <li><b>Консультации:</b> подбор решений под ваши задачи</li>
-          </ul>
+        <!-- Карточка 2: Кастомные решения с фото -->
+        <div class="reveal">
+          <div class="card-image-top">
+            <img src="./img/advertising-2.jpg" alt="Кастомные решения">
+          </div>
+          <div class="card card-3d" style="border-radius:0 0 12px 12px;">
+            <h4>Кастомные решения</h4>
+            <ul class="list">
+              <li><b>Arduino:</b> управляющая электроника, датчики, дисплеи</li>
+              <li><b>Автоматизация:</b> умные системы, контроллеры, реле</li>
+              <li><b>Интерактив:</b> кнопки, сенсоры, LED‑подсветка</li>
+              <li><b>Консультации:</b> подбор решений под ваши задачи</li>
+            </ul>
+          </div>
         </div>
       </div>
       <p class="note" style="margin-top:16px">Совмещаем инженерную точность 3D и маркетинговые задачи: конструкция безопасна, визуал — читабелен, дедлайн — соблюден.</p>
-    </div>
-  </section>
-
-  <section id="materials">
-    <div class="container">
-      <h3 class="gradient-text">Материалы и допуски</h3>
-      <div class="columns">
-        <div class="card reveal card-3d">
-          <h4>Рекомендации по выбору</h4>
-          <ul class="list">
-            <li><b>Прочность/нагрузка:</b> Nylon, PETG, CF‑композиты</li>
-            <li><b>Стойкость к погоде:</b> Композиты, PETG</li>
-            <li><b>Точность и гладкость:</b> мелкие сопла 0.2 мм</li>
-            <li><b>Температура:</b> ABS/СF-композиты</li>
-          </ul>
-        </div>
-        <div class="card reveal card-3d">
-          <h4>Типовые допуски</h4>
-          <ul class="list">
-            <li><b>Стандартное сопло:</b> 0.4 мм, ±0.2–0.3 мм точность</li>
-            <li><b>Мелкое сопло:</b> 0.2 мм, ±0.1–0.15 мм для деталей</li>
-            <li><b>Усадка PLA:</b> ~0.3–0.5%, минимальная деформация</li>
-            <li><b>Усадка ABS/ASA:</b> ~0.4–0.8%</li>
-            <li><b>Рекламные узлы:</b> допуски крепежа и электроники по ТЗ</li>
-          </ul>
-          <p class="note">Фактические допуски зависят от геометрии, материала и пост‑обработки.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -277,8 +276,8 @@
         <div class="card reveal card-3d portfolio-card">
           <div class="portfolio-img"><img src="./img/3d2.jpg" alt="Прототип кронштейна"></div>
           <div class="portfolio-overlay">
-            <h4>Фигурка marvel</h4>
-            <p class="muted">PETG, Печатаем любую художку</p>
+            <h4>Внутренняя вывеска</h4>
+            <p class="muted">Изготовлена и смонтирована, имеется LED-подсветка</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
@@ -293,8 +292,8 @@
         <div class="card reveal card-3d portfolio-card">
           <div class="portfolio-img"><img src="./img/ad1.jpg" alt="Рекламный стенд"></div>
           <div class="portfolio-overlay">
-            <h4>Накладка на автомобильный диск</h4>
-            <p class="muted">PETG, отсканирована, восстановлена, напечатана</p>
+            <h4>Внешняя вывеска магазина</h4>
+            <p class="muted">Изготовлена и смонтирована по пожеланиям клиента, имеется LED-подсветка</p>
           </div>
         </div>
         <div class="card reveal card-3d portfolio-card">
@@ -307,9 +306,37 @@
         <div class="card reveal card-3d portfolio-card">
           <div class="portfolio-img"><img src="./img/ad3.jpg" alt="Лайтбокс с 3D элементом"></div>
           <div class="portfolio-overlay">
-            <h4>Накладка на детский мотошлем</h4>
-            <p class="muted">TPU, Смоделирована и напечатана из гибкого пластика</p>
+            <h4>Внутренняя вывеска Брестской области</h4>
+            <p class="muted">По требованиям клиента была изготовлена и смонтирована, материал ПВХ</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="3d-printing">
+    <div class="container">
+      <h3 class="gradient-text">3D печать</h3>
+      <div class="columns">
+        <div class="card reveal card-3d">
+          <h4>Рекомендации по выбору</h4>
+          <ul class="list">
+            <li><b>Прочность/нагрузка:</b> Nylon, PETG, CF‑композиты</li>
+            <li><b>Стойкость к погоде:</b> Композиты, PETG</li>
+            <li><b>Точность и гладкость:</b> мелкие сопла 0.2 мм</li>
+            <li><b>Температура:</b> ABS/СF-композиты</li>
+          </ul>
+        </div>
+        <div class="card reveal card-3d">
+          <h4>Типовые допуски</h4>
+          <ul class="list">
+            <li><b>Стандартное сопло:</b> 0.4 мм, ±0.2–0.3 мм точность</li>
+            <li><b>Мелкое сопло:</b> 0.2 мм, ±0.1–0.15 мм для деталей</li>
+            <li><b>Усадка PLA:</b> ~0.3–0.5%, минимальная деформация</li>
+            <li><b>Усадка ABS/ASA:</b> ~0.4–0.8%</li>
+            <li><b>Рекламные узлы:</b> допуски крепежа и электроники по ТЗ</li>
+          </ul>
+          <p class="note">Фактические допуски зависят от геометрии, материала и пост‑обработки.</p>
         </div>
       </div>
     </div>
@@ -415,16 +442,22 @@
   </footer>
 
   <script>
+    // Глобальный массив для хранения выбранных файлов
+    let selectedFiles = [];
+    
+    // Разрешённые расширения файлов
+    const ALLOWED_EXTENSIONS = ['.stl', '.step', '.stp', '.iges', '.igs', '.obj', '.jpg', '.jpeg', '.png', '.pdf'];
+    const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+
     // Частицы для фона - два типа: дрейфующие (статичные) и всплывающие (динамические)
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
       if (!particlesContainer) return;
       
       const isMobile = window.innerWidth < 768;
-      const driftCount = isMobile ? 15 : 30;  // Статичные дрейфующие
-      const floatCount = isMobile ? 10 : 20;  // Динамические всплывающие
+      const driftCount = isMobile ? 15 : 30; 
+      const floatCount = isMobile ? 10 : 20; 
       
-      // 1. Создаём дрейфующие партиклы (видны сразу при загрузке)
       for (let i = 0; i < driftCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle particle-drift';
@@ -438,7 +471,6 @@
         particlesContainer.appendChild(particle);
       }
       
-      // 2. Создаём всплывающие партиклы (идут снизу вверх)
       for (let i = 0; i < floatCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle particle-float';
@@ -543,16 +575,13 @@
       const glow = document.getElementById('cursorGlow');
       if (!glow) return;
       
-      // Проверяем, является ли устройство touch-устройством
       const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
       
       if (isTouchDevice) {
-        // На мобильных устройствах просто скрываем свечение
         glow.style.display = 'none';
         return;
       }
       
-      // Для десктопа - следование за курсором
       let mouseX = 0, mouseY = 0;
       let glowX = 0, glowY = 0;
 
@@ -562,13 +591,11 @@
       });
 
       function animate() {
-        // Плавное следование (увеличена скорость с 0.1 до 0.25)
         glowX += (mouseX - glowX - 100) * 0.25;
         glowY += (mouseY - glowY - 100) * 0.25;
         
         glow.style.transform = `translate(${glowX}px, ${glowY}px)`;
         
-        // Изменение размера при движении
         const deltaX = Math.abs(mouseX - glowX);
         const deltaY = Math.abs(mouseY - glowY);
         const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -609,7 +636,6 @@
       
       if (!sections.length || !menuLinks.length) return;
       
-      // Увеличен offset для корректной работы с scroll-margin-top
       const DETECTION_OFFSET = 200;
 
       function updateActiveMenu() {
@@ -617,20 +643,18 @@
         const windowHeight = window.innerHeight;
         const docHeight = document.documentElement.scrollHeight;
         
-        // Проверяем конец страницы
         const isAtBottom = window.scrollY + windowHeight >= docHeight - 50;
         
         if (isAtBottom) {
           menuLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === '#portfolio') {
+            if (link.getAttribute('href') === '#contact') {
               link.classList.add('active');
             }
           });
           return;
         }
         
-        // Ищем последнюю секцию, начало которой <= scrollPos
         let activeSection = null;
         
         sections.forEach(section => {
@@ -642,7 +666,6 @@
           }
         });
         
-        // Обновляем подсветку
         menuLinks.forEach(link => {
           const href = link.getAttribute('href');
           if (activeSection && href === '#' + activeSection) {
@@ -652,7 +675,6 @@
           }
         });
         
-        // Если над первой секцией - подсвечиваем services
         if (!activeSection) {
           menuLinks.forEach(link => {
             link.classList.remove('active');
@@ -749,7 +771,6 @@
       initDropzone();
       initFormValidation();
       
-      // Запускаем анимацию чисел когда секция в поле зрения
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -770,7 +791,6 @@
       const descInput = document.getElementById('desc');
       const descCount = document.getElementById('desc-count');
       
-      // Маска для телефона
       phoneInput.addEventListener('input', (e) => {
         let value = e.target.value.replace(/\D/g, '');
         
@@ -791,7 +811,6 @@
         validateField(phoneInput, 'phone');
       });
       
-      // Счётчик символов для описания
       descInput.addEventListener('input', (e) => {
         const count = e.target.value.length;
         descCount.textContent = count;
@@ -806,12 +825,10 @@
         validateField(descInput, 'desc');
       });
       
-      // Валидация имени при вводе
       document.getElementById('name').addEventListener('input', (e) => {
         validateField(e.target, 'name');
       });
       
-      // Валидация email при вводе
       document.getElementById('email').addEventListener('input', (e) => {
         if (e.target.value) {
           validateField(e.target, 'email');
@@ -902,44 +919,68 @@
       }
     }
 
-    // Preloader с прогресс-баром и fail-safe таймаутом
+    // Preloader с прогресс-баром
     function initPreloader() {
       const preloader = document.getElementById('preloader');
       const bar = document.getElementById('preloaderBar');
       const text = document.getElementById('preloaderText');
       
-      // Fail-safe: скрываем preloader через максимум 5 секунд в любом случае
-      const failSafeTimeout = setTimeout(() => {
-        if (preloader && !preloader.classList.contains('hidden')) {
-          preloader.classList.add('hidden');
-        }
-      }, 5000);
+      if (!preloader) return;
       
-      const steps = [
-        { progress: 20, text: 'Загрузка стилей...' },
-        { progress: 40, text: 'Загрузка шрифтов...' },
-        { progress: 60, text: 'Инициализация...' },
-        { progress: 80, text: 'Почти готово...' },
-        { progress: 100, text: 'Готово!' }
-      ];
+      let progress = 0;
+      let animationComplete = false;
       
-      let currentStep = 0;
-      
-      function nextStep() {
-        if (currentStep < steps.length) {
-          bar.style.width = steps[currentStep].progress + '%';
-          text.textContent = steps[currentStep].text;
-          currentStep++;
-          setTimeout(nextStep, 200 + Math.random() * 300);
-        } else {
+      function animate() {
+        if (animationComplete) return;
+        
+        // Плавное увеличение прогресса
+        progress += (100 - progress) * 0.08;
+        
+        // Округляем и ограничиваем
+        const displayProgress = Math.min(Math.round(progress), 100);
+        
+        bar.style.width = displayProgress + '%';
+        text.textContent = `Загрузка... ${displayProgress}%`;
+        
+        if (displayProgress >= 100) {
+          animationComplete = true;
+          bar.style.width = '100%';
+          text.textContent = 'Загрузка... 100%';
           setTimeout(() => {
             preloader.classList.add('hidden');
-            clearTimeout(failSafeTimeout); // Отменяем fail-safe если всё прошло успешно
-          }, 300);
+          }, 200);
+        } else {
+          requestAnimationFrame(animate);
         }
       }
       
-      setTimeout(nextStep, 100);
+      // Запускаем анимацию
+      requestAnimationFrame(animate);
+      
+      // Failsafe
+      setTimeout(() => {
+        if (!animationComplete) {
+          animationComplete = true;
+          bar.style.width = '100%';
+          text.textContent = 'Загрузка... 100%';
+          setTimeout(() => {
+            preloader.classList.add('hidden');
+          }, 200);
+        }
+      }, 2000);
+    }
+
+    // Проверка расширения файла
+    function isAllowedFile(filename) {
+      const ext = '.' + filename.split('.').pop().toLowerCase();
+      return ALLOWED_EXTENSIONS.includes(ext);
+    }
+
+    // Форматирование размера файла
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return bytes + ' Б';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' КБ';
+      return (bytes / (1024 * 1024)).toFixed(1) + ' МБ';
     }
 
     // Dropzone для файлов
@@ -950,12 +991,10 @@
       
       if (!dropzone || !fileInput) return;
       
-      let selectedFiles = [];
+      // Используем глобальную переменную selectedFiles
       
-      // Клик по dropzone
       dropzone.addEventListener('click', () => fileInput.click());
       
-      // Drag & Drop события
       dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
         dropzone.classList.add('dragover');
@@ -971,13 +1010,26 @@
         handleFiles(e.dataTransfer.files);
       });
       
-      // Выбор файлов
       fileInput.addEventListener('change', (e) => {
         handleFiles(e.target.files);
       });
       
       function handleFiles(files) {
         for (let file of files) {
+          // Проверяем формат файла
+          if (!isAllowedFile(file.name)) {
+            showErrorModal('Неподдерживаемый формат', 
+              `Файл "${file.name}" имеет неподдерживаемый формат.\n\nРазрешённые форматы: STL, STEP, IGES, OBJ, JPG, PNG, PDF`);
+            continue;
+          }
+          
+          // Проверяем размер файла
+          if (file.size > MAX_FILE_SIZE) {
+            showErrorModal('Файл слишком большой', 
+              `Файл "${file.name}" превышает лимит 50 МБ.\n\nРазмер файла: ${formatFileSize(file.size)}`);
+            continue;
+          }
+          
           if (!selectedFiles.find(f => f.name === file.name)) {
             selectedFiles.push(file);
             renderFile(file);
@@ -989,7 +1041,7 @@
         const fileEl = document.createElement('div');
         fileEl.className = 'dropzone-file';
         fileEl.innerHTML = `
-          <span class="dropzone-file-name">${file.name}</span>
+          <span class="dropzone-file-name">${file.name} <small style="color:var(--muted)">(${formatFileSize(file.size)})</small></span>
           <button type="button" class="dropzone-file-remove" aria-label="Удалить">×</button>
         `;
         
@@ -1007,7 +1059,6 @@
     async function submitForm(e) {
       e.preventDefault();
       
-      // Валидация всех полей
       const nameInput = document.getElementById('name');
       const phoneInput = document.getElementById('phone');
       const emailInput = document.getElementById('email');
@@ -1020,7 +1071,6 @@
       const isDescValid = validateField(descInput, 'desc');
       
       if (!isNameValid || !isPhoneValid || !isEmailValid || !isDescValid) {
-        // Скролл к первому ошибочному полю
         const firstError = document.querySelector('.form-error.visible');
         if (firstError) {
           firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1028,14 +1078,12 @@
         return;
       }
 
-      // Блокируем кнопку отправки
       const submitBtn = e.target.querySelector('button[type="submit"]');
       const originalBtnText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Отправка...';
       
       try {
-        // Подготовка данных
         const formData = new FormData();
         formData.append('name', nameInput.value.trim());
         formData.append('phone', phoneInput.value.trim());
@@ -1043,7 +1091,13 @@
         formData.append('service', serviceInput.value);
         formData.append('desc', descInput.value.trim());
         
-        // Отправка на API
+        // Добавляем файлы в formData
+        if (selectedFiles.length > 0) {
+           selectedFiles.forEach(file => {
+             formData.append('files', file);
+           });
+        }
+        
         const response = await fetch('/api/contact', {
           method: 'POST',
           body: formData,
@@ -1052,7 +1106,6 @@
         const result = await response.json();
         
         if (result.success) {
-          // Показываем модальное окно успеха
           const modal = document.createElement('div');
           modal.className = 'modal-overlay';
           modal.innerHTML = `
@@ -1071,17 +1124,21 @@
           `;
           document.body.appendChild(modal);
           
-          // Сброс формы
           e.target.reset();
+          selectedFiles = []; // Очищаем файлы после отправки
           document.getElementById('dropzoneFiles').innerHTML = '';
           document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
           document.querySelectorAll('input, textarea').forEach(el => el.classList.remove('valid', 'error'));
           document.getElementById('desc-count').textContent = '0';
           document.querySelector('.form-hint').classList.remove('success');
         } else {
-          // Обработка ошибок от сервера
+          // Обработка rate limit
           if (result.error === 'rate_limit') {
-            showErrorModal('Подождите', result.message || 'Слишком много запросов. Попробуйте позже.');
+            showErrorModal('Лимит исчерпан', result.message || 'Слишком много запросов. Попробуйте позже.');
+          } else if (result.error === 'invalid_format') {
+            showErrorModal('Неподдерживаемый формат', result.message);
+          } else if (result.error === 'file_too_large') {
+            showErrorModal('Файл слишком большой', result.message);
           } else {
             showErrorModal('Ошибка', result.message || 'Произошла ошибка при отправке.');
           }
@@ -1095,7 +1152,6 @@
       }
     }
 
-    // Показать модальное окно ошибки
     function showErrorModal(title, message) {
       const modal = document.createElement('div');
       modal.className = 'modal-overlay';
@@ -1110,7 +1166,7 @@
               </svg>
             </div>
             <h3>${title}</h3>
-            <p>${message}</p>
+            <p style="white-space:pre-line">${message}</p>
             <button class="cta magnetic" onclick="this.closest('.modal-overlay').remove()">Закрыть</button>
           </div>
         </div>
